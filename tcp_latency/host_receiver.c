@@ -18,7 +18,7 @@ int main(int argc,char *argv[])
 	struct timeval e;
 
 	if(argc != 2){
-		fprintf(stderr,"Usage: %s",argv[0]);
+		fprintf(stderr,"Usage: %s filename \n",argv[0]);
 		return -1;
 	}
 
@@ -67,8 +67,10 @@ int main(int argc,char *argv[])
 			break;
 		}
 
-		gettimeofday(&e,NULL);
-		printf("time = %lf\n", (e.tv_sec + e.tv_usec)*1.0E-6);
+		ret = write(sfd,buf,n);
+		if(ret < 1){
+			perror("write");
+		}
 
 		printf("receive data from vm\n");
 		break;

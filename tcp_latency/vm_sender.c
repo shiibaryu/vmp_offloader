@@ -60,6 +60,12 @@ int main(int argc,char *argv[])
 			break;
 		}
 
+		n = read(sock,buf,sizeof(buf));
+
+		gettimeofday(&s,NULL);
+		printf("time = %lf\n", (s.tv_sec + s.tv_usec)*1.0E-6);
+
+
 		printf("write data to host \n");
 		break;
 	}
