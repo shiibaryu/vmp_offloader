@@ -20,6 +20,8 @@ int main(int argc,char *argv[])
 		return 1;
 	}
 
+	gettimeofday(&s,NULL);
+
 	fd = open(argv[2],O_RDONLY);
 	if(fd < 0){
 		perror("open");
@@ -42,8 +44,6 @@ int main(int argc,char *argv[])
 		return -1;
 	}
 
-	gettimeofday(&s,NULL);
-	printf("time = %lf\n", (s.tv_sec + s.tv_usec)*1.0E-6);
 
 	ret = connect(sock,res->ai_addr,res->ai_addrlen);
 	if(ret != 0){
@@ -62,9 +62,8 @@ int main(int argc,char *argv[])
 
 		n = read(sock,buf,sizeof(buf));
 
-		gettimeofday(&s,NULL);
-		printf("time = %lf\n", (s.tv_sec + s.tv_usec)*1.0E-6);
-
+		gettimeofday(&e,NULL);
+		printf("time = %f\n", ((e.tv_sec-s.tv_sec) + ((e.tv_usec-s.tv_usec)/1000000.0)));
 
 		printf("write data to host \n");
 		break;
